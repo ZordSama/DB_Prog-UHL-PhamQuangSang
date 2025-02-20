@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:hoso.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="hoso.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="hoso">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="RGB(11,23,2)">
+        <Grid Margin="100,100,100,0" >
+            <StackPanel>
+                <TextBlock FontSize="20" Foreground="RGB(255,255,255)" Text="Tìm sinh viên"/>
+                <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                    <TextBox Text="{Binding SearchText}" Width="200" Height="30" />
+                    <Button Width="100" Height="30" Margin="10,0,0,0" Command="{Binding SearchCommand}">Tìm kiếm</Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Margin="50,20,50,0" Height="400">
+            <DataGrid ItemsSource="{Binding SearchResults}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã SV" Binding="{Binding Masv}" />
+                    <DataGridTextColumn Header="Họ Tên" Binding="{Binding Hoten}" />
+                    <DataGridTextColumn Header="Giới Tính" Binding="{Binding Gioitinh}" />
+                    <DataGridTextColumn Header="Ngày Sinh" Binding="{Binding Ngaysinh}" />
+                    <DataGridTextColumn Header="Quê Quán" Binding="{Binding Quequan}" />
+                    <DataGridTextColumn Header="Lớp" Binding="{Binding LopNavigation.Tenlop}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </StackPanel>
+</Window>
