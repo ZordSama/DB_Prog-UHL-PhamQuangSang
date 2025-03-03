@@ -19,8 +19,8 @@ public partial class KhmtK8bContext : DbContext
 
     public virtual DbSet<Sinhvien> Sinhviens { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=ZORD_ACER_A7\\ZORD_DB; Database=khmt_k8b; User Id=sa; Password=Sang123@; Trusted_Connection=True; Encrypt=True; TrustServerCertificate=True");
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //     => optionsBuilder.UseSqlServer("Server=ZORD_ACER_A7\\ZORD_DB; Database=khmt_k8b; User Id=sa; Password=Sang123@; Trusted_Connection=True; Encrypt=True; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -37,9 +37,10 @@ public class MainWindowViewModel : ViewModelBase
 
     public ReactiveCommand<Unit, Unit> SearchCommand { get; }
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(KhmtK8bContext context)
     {
-        _context = new KhmtK8bContext();
+        _context = context;
+        Console.WriteLine("Loaded MainWindowViewModel");
         SearchCommand = ReactiveCommand.CreateFromTask(SearchCmdHandler);
         LoadSinhviens();
     }
