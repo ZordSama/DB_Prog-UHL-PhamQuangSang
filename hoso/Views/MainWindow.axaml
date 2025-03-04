@@ -13,17 +13,37 @@
         
     <Window.Resources>
         <local:GenderConverter x:Key="GenderConverter" />
+        <local:BooleanToStringConverter x:Key="BooleanToStringConverter" />
     </Window.Resources>
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <Grid>
-        <StackPanel  Background="RGB(0,0,0)" VerticalAlignment="Stretch">
-            <!-- Form to add Sinh Viên -->
+    <Grid x:Name="Root">
+        <StackPanel Background="RGB(0,0,0)" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="300">
+            <StackPanel Margin="20" Orientation="Vertical">
+                <TextBlock FontSize="20" Foreground="White" Text="Thêm Sinh Viên"/>
+                <TextBlock Foreground="White" Text="Mã SV"/>
+                <!-- <TextBox Text="{Binding NewMasv}" Margin="0,5"/> -->
+                <TextBox Text="{Binding NewMasv}" Margin="0,5" IsEnabled="{Binding IsMasvEnabled}"/>
+                <TextBlock Foreground="White" Text="Họ Tên"/>
+                <TextBox Text="{Binding NewHoten}" Margin="0,5"/>
+                <TextBlock Foreground="White" Text="Giới Tính"/>
+                <ComboBox ItemsSource="{Binding Genders}" SelectedItem="{Binding SelectedGender}" Margin="0,5"/>
+                <TextBlock Foreground="White" Text="Ngày Sinh"/>
+                <DatePicker SelectedDate="{Binding NewNgaysinh}" Margin="0,5"/>
+                <TextBlock Foreground="White" Text="Quê Quán"/>
+                <TextBox Text="{Binding NewQuequan}" Margin="0,5"/>
+                <TextBlock Foreground="White" Text="Lớp"/>
+                <ComboBox ItemsSource="{Binding TenLops}" SelectedItem="{Binding SelectedLop}" Margin="0,5"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <Button Command="{Binding AddSinhvienCommand}" Content="{Binding IsEditing, Converter={StaticResource BooleanToStringConverter}, ConverterParameter='Lưu|Thêm'}" Width="80"/>
+                    <Button Command="{Binding CancelEditCommand}" Content="Hủy" Width="80" Margin="10,0,0,0" IsVisible="{Binding IsEditing}"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
-        <StackPanel Width="920" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-            <Grid Margin="20,20,100,0" >
+        <StackPanel Width="1050" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+            <Grid Margin="20,20,100,0">
                 <StackPanel>
                     <TextBlock FontSize="20" Foreground="RGB(255,255,255)" Text="Tìm sinh viên"/>
                     <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
@@ -32,7 +52,6 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
-
             <Grid Margin="0,20,0,0" Height="620">
                 <DataGrid ItemsSource="{Binding SearchResults}" AutoGenerateColumns="False" CanUserResizeColumns="True">
                     <DataGrid.Columns>
@@ -42,6 +61,14 @@
                         <DataGridTextColumn Header="Ngày Sinh" Binding="{Binding Ngaysinh}" />
                         <DataGridTextColumn Header="Quê Quán" Binding="{Binding Quequan}" />
                         <DataGridTextColumn Header="Lớp" Binding="{Binding LopNavigation.Tenlop}" />
+                        <DataGridTemplateColumn Header="Hành động">
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Sửa" Command="{Binding #Root.((vm:MainWindowViewModel)DataContext).EditSinhvienCommand}" CommandParameter="{Binding}" Margin="5,0"/>
+                                    <Button Content="Xóa" Command="{Binding #Root.((vm:MainWindowViewModel)DataContext).DeleteSinhvienCommand}" CommandParameter="{Binding}" Margin="5,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
